@@ -118,6 +118,7 @@ function App() {
           onBack={handleBack}
           canGoBack={history.length > 0}
           onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} // 👈 pass to Header
+          onNavigate={handleNavigation}
         />
         <main className="flex-1 p-4 sm:p-6 overflow-auto">
           {renderActiveScreen()}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ArrowLeft, Bell, Mail, User, Menu } from 'lucide-react';
+import { Search, ArrowLeft, Bell, User, Menu } from 'lucide-react';
 
 interface HeaderProps {
   activeScreen: string;
@@ -7,7 +7,8 @@ interface HeaderProps {
   setUserRole: (role: 'employee' | 'hr_executive') => void;
   onBack?: () => void;
   canGoBack?: boolean;
-  onToggleSidebar?: () => void; // 👈 added for mobile hamburger
+  onToggleSidebar?: () => void;
+  onNavigate?: (screen: string) => void; // 👈 add this
 }
 
 const Header: React.FC<HeaderProps> = ({ 
@@ -15,7 +16,8 @@ const Header: React.FC<HeaderProps> = ({
   userRole, 
   onBack, 
   canGoBack, 
-  onToggleSidebar 
+  onToggleSidebar,
+  onNavigate
 }) => {
   return (
     <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
@@ -31,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
             <Menu size={22} className="text-gray-700" />
           </button>
 
-          {/* Back button (desktop + mobile) */}
+          {/* Back button */}
           {canGoBack && (
             <button onClick={onBack} className="p-1 hover:bg-gray-100 rounded-full">
               <ArrowLeft size={20} className="text-gray-600" />
@@ -65,12 +67,21 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Icons */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-orange-500 rounded-full flex items-center justify-center">
+            {/* Bell → Announcements */}
+            <button
+              onClick={() => onNavigate && onNavigate('Announcement')}
+              className="w-9 h-9 sm:w-10 sm:h-10 bg-orange-500 rounded-full flex items-center justify-center hover:opacity-90 transition"
+            >
               <Bell size={14} className="text-white" />
-            </div>
-            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-400 rounded-full flex items-center justify-center">
+            </button>
+
+            {/* User → Profile/Settings */}
+            <button
+              onClick={() => onNavigate && onNavigate('Profile/Settings')}
+              className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-400 rounded-full flex items-center justify-center hover:opacity-90 transition"
+            >
               <User size={14} className="text-white" />
-            </div>
+            </button>
           </div>
         </div>
       </div>

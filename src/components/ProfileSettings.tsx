@@ -110,287 +110,287 @@ const ProfileSettings: React.FC = () => {
 
         {/* Main Content */}
         <div className="lg:col-span-2">
-          {/* Tabs */}
-          <div className="flex border-b mb-4">
-            {['personal', 'account', 'documents', 'preferences'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 -mb-px font-medium border-b-2 ${
-                  activeTab === tab
-                    ? 'border-orange-500 text-orange-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
-              </button>
-            ))}
-          </div>
+          {/* Tabs - mobile optimized */}
+          <div className="flex mb-4 overflow-x-auto scrollbar-hide">
+  {['personal', 'account', 'documents', 'preferences'].map((tab) => (
+    <button
+      key={tab}
+      onClick={() => setActiveTab(tab)}
+      className={`px-4 py-2 font-medium whitespace-nowrap text-sm sm:text-base ${
+        activeTab === tab
+          ? 'text-orange-600 font-semibold'
+          : 'text-gray-500 hover:text-gray-700'
+      }`}
+    >
+      {tab.charAt(0).toUpperCase() + tab.slice(1)}
+    </button>
+  ))}
+</div>
 
           {/* Personal Info */}
-          {activeTab === 'personal' && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Personal Information</h3>
-                {!isEditing ? (
-                  <button
-                    className="border rounded-lg px-3 py-2 hover:bg-gray-50"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Edit className="h-4 w-4 mr-2 inline" />
-                    Edit
-                  </button>
-                ) : (
-                  <div className="flex gap-2">
-                    <button
-                      className="border rounded-lg px-3 py-2 hover:bg-gray-50"
-                      onClick={handleCancel}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="bg-orange-500 text-white rounded-lg px-3 py-2"
-                      onClick={handleSave}
-                    >
-                      Save Changes
-                    </button>
-                  </div>
-                )}
-              </div>
+{activeTab === 'personal' && (
+  <div className="bg-white rounded-xl border border-gray-200 p-6">
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="text-lg font-semibold">Personal Information</h3>
+      {!isEditing ? (
+        <button
+          className="border rounded-lg px-3 py-2 hover:bg-gray-50"
+          onClick={() => setIsEditing(true)}
+        >
+          <Edit className="h-4 w-4 mr-2 inline" />
+          Edit
+        </button>
+      ) : (
+        <div className="flex gap-2">
+          <button
+            className="border rounded-lg px-3 py-2 hover:bg-gray-50"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-orange-500 text-white rounded-lg px-3 py-2"
+            onClick={handleSave}
+          >
+            Save Changes
+          </button>
+        </div>
+      )}
+    </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    disabled={!isEditing}
-                    className="w-full border rounded-lg px-3 py-2"
-                  />
-                </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Full Name
+        </label>
+        <input
+          type="text"
+          value={formData.name}
+          onChange={(e) =>
+            setFormData({ ...formData, name: e.target.value })
+          }
+          disabled={!isEditing}
+          className="w-full border rounded-lg px-3 py-2"
+        />
+      </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    disabled={!isEditing}
-                    className="w-full border rounded-lg px-3 py-2"
-                  />
-                </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Email Address
+        </label>
+        <input
+          type="email"
+          value={formData.email}
+          onChange={(e) =>
+            setFormData({ ...formData, email: e.target.value })
+          }
+          disabled={!isEditing}
+          className="w-full border rounded-lg px-3 py-2"
+        />
+      </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                    disabled={!isEditing}
-                    className="w-full border rounded-lg px-3 py-2"
-                  />
-                </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Phone Number
+        </label>
+        <input
+          type="tel"
+          value={formData.phone}
+          onChange={(e) =>
+            setFormData({ ...formData, phone: e.target.value })
+          }
+          disabled={!isEditing}
+          className="w-full border rounded-lg px-3 py-2"
+        />
+      </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Job Title
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.position}
-                    onChange={(e) =>
-                      setFormData({ ...formData, position: e.target.value })
-                    }
-                    disabled={!isEditing}
-                    className="w-full border rounded-lg px-3 py-2"
-                  />
-                </div>
-              </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Job Title
+        </label>
+        <input
+          type="text"
+          value={formData.position}
+          onChange={(e) =>
+            setFormData({ ...formData, position: e.target.value })
+          }
+          disabled={!isEditing}
+          className="w-full border rounded-lg px-3 py-2"
+        />
+      </div>
+    </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Address
-                </label>
-                <input
-                  type="text"
-                  value={formData.address}
-                  onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
-                  }
-                  disabled={!isEditing}
-                  className="w-full border rounded-lg px-3 py-2"
-                />
-              </div>
+    <div>
+      <label className="block text-sm font-medium mb-1">
+        Address
+      </label>
+      <input
+        type="text"
+        value={formData.address}
+        onChange={(e) =>
+          setFormData({ ...formData, address: e.target.value })
+        }
+        disabled={!isEditing}
+        className="w-full border rounded-lg px-3 py-2"
+      />
+    </div>
+  </div>
+)}
+
+{/* Account */}
+{activeTab === 'account' && (
+  <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
+    <h3 className="text-lg font-semibold flex items-center gap-2">
+      <Shield className="h-5 w-5" /> Account Security
+    </h3>
+
+    {/* Password */}
+    <div className="space-y-3">
+      <h4 className="font-medium">Change Password</h4>
+      <input
+        type="password"
+        placeholder="Current Password"
+        className="w-full border rounded-lg px-3 py-2"
+      />
+      <input
+        type="password"
+        placeholder="New Password"
+        className="w-full border rounded-lg px-3 py-2"
+      />
+      <input
+        type="password"
+        placeholder="Confirm New Password"
+        className="w-full border rounded-lg px-3 py-2"
+      />
+      <button className="bg-orange-500 text-white rounded-lg px-3 py-2">
+        <Lock className="h-4 w-4 inline mr-2" />
+        Update Password
+      </button>
+    </div>
+
+    <hr />
+
+    {/* Login Activity */}
+    <div>
+      <h4 className="font-medium mb-2">Login Activity</h4>
+      <div className="space-y-3">
+        <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+          <div>
+            <div className="font-medium">Current Session</div>
+            <div className="text-sm text-gray-500">
+              Chrome on Windows • Active now
             </div>
-          )}
-
-          {/* Account */}
-          {activeTab === 'account' && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <Shield className="h-5 w-5" /> Account Security
-              </h3>
-
-              {/* Password */}
-              <div className="space-y-3">
-                <h4 className="font-medium">Change Password</h4>
-                <input
-                  type="password"
-                  placeholder="Current Password"
-                  className="w-full border rounded-lg px-3 py-2"
-                />
-                <input
-                  type="password"
-                  placeholder="New Password"
-                  className="w-full border rounded-lg px-3 py-2"
-                />
-                <input
-                  type="password"
-                  placeholder="Confirm New Password"
-                  className="w-full border rounded-lg px-3 py-2"
-                />
-                <button className="bg-orange-500 text-white rounded-lg px-3 py-2">
-                  <Lock className="h-4 w-4 inline mr-2" />
-                  Update Password
-                </button>
-              </div>
-
-              <hr />
-
-              {/* Login Activity */}
-              <div>
-                <h4 className="font-medium mb-2">Login Activity</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                    <div>
-                      <div className="font-medium">Current Session</div>
-                      <div className="text-sm text-gray-500">
-                        Chrome on Windows • Active now
-                      </div>
-                    </div>
-                    <span className="px-3 py-1 border rounded-lg text-sm">
-                      Current
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 border rounded-lg">
-                    <div>
-                      <div className="font-medium">Previous Login</div>
-                      <div className="text-sm text-gray-500">
-                        Mobile App • 2 hours ago
-                      </div>
-                    </div>
-                    <button className="text-sm text-orange-600 hover:underline">
-                      Revoke
-                    </button>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <span className="px-3 py-1 border rounded-lg text-sm">
+            Current
+          </span>
+        </div>
+        <div className="flex justify-between items-center p-3 border rounded-lg">
+          <div>
+            <div className="font-medium">Previous Login</div>
+            <div className="text-sm text-gray-500">
+              Mobile App • 2 hours ago
             </div>
-          )}
+          </div>
+          <button className="text-sm text-orange-600 hover:underline">
+            Revoke
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
-          {/* Documents */}
-          {activeTab === 'documents' && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
-                <FileText className="h-5 w-5" /> Documents
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  'Employment Contract',
-                  'Tax Documents',
-                  'Benefits Enrollment',
-                  'Performance Reviews',
-                ].map((doc, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 border rounded-lg space-y-2 hover:shadow-sm"
-                  >
-                    <div className="font-medium">{doc}</div>
-                    <p className="text-sm text-gray-500">
-                      Last updated recently
-                    </p>
-                    <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
-                      View Document
-                    </button>
-                  </div>
-                ))}
-              </div>
+{/* Documents */}
+{activeTab === 'documents' && (
+  <div className="bg-white rounded-xl border border-gray-200 p-6">
+    <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
+      <FileText className="h-5 w-5" /> Documents
+    </h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        'Employment Contract',
+        'Tax Documents',
+        'Benefits Enrollment',
+        'Performance Reviews',
+      ].map((doc, idx) => (
+        <div
+          key={idx}
+          className="p-4 border rounded-lg space-y-2 hover:shadow-sm"
+        >
+          <div className="font-medium">{doc}</div>
+          <p className="text-sm text-gray-500">
+            Last updated recently
+          </p>
+          <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
+            View Document
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* Preferences */}
+{activeTab === 'preferences' && (
+  <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
+    <h3 className="text-lg font-semibold">Preferences</h3>
+
+    {/* Notifications */}
+    <div>
+      <h4 className="font-medium mb-2">Notification Settings</h4>
+      <div className="space-y-3">
+        {[
+          ['Email Notifications', 'Receive updates via email'],
+          ['Leave Reminders', 'Get notified about leave balances'],
+          ['Payslip Alerts', 'Notification when payslip is ready'],
+        ].map(([title, desc]) => (
+          <div
+            key={title}
+            className="flex items-center justify-between"
+          >
+            <div>
+              <div className="font-medium">{title}</div>
+              <div className="text-sm text-gray-500">{desc}</div>
             </div>
-          )}
+            <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
+              Configure
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
 
-          {/* Preferences */}
-          {activeTab === 'preferences' && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
-              <h3 className="text-lg font-semibold">Preferences</h3>
+    <hr />
 
-              {/* Notifications */}
-              <div>
-                <h4 className="font-medium mb-2">Notification Settings</h4>
-                <div className="space-y-3">
-                  {[
-                    ['Email Notifications', 'Receive updates via email'],
-                    ['Leave Reminders', 'Get notified about leave balances'],
-                    ['Payslip Alerts', 'Notification when payslip is ready'],
-                  ].map(([title, desc]) => (
-                    <div
-                      key={title}
-                      className="flex items-center justify-between"
-                    >
-                      <div>
-                        <div className="font-medium">{title}</div>
-                        <div className="text-sm text-gray-500">{desc}</div>
-                      </div>
-                      <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
-                        Configure
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <hr />
-
-              {/* Display */}
-              <div>
-                <h4 className="font-medium mb-2">Display Settings</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Language</div>
-                      <div className="text-sm text-gray-500">English (US)</div>
-                    </div>
-                    <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
-                      Change
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Time Zone</div>
-                      <div className="text-sm text-gray-500">
-                        GMT+8 (Kuala Lumpur)
-                      </div>
-                    </div>
-                    <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
-                      Change
-                    </button>
-                  </div>
-                </div>
-              </div>
+    {/* Display */}
+    <div>
+      <h4 className="font-medium mb-2">Display Settings</h4>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="font-medium">Language</div>
+            <div className="text-sm text-gray-500">English (US)</div>
+          </div>
+          <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
+            Change
+          </button>
+        </div>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="font-medium">Time Zone</div>
+            <div className="text-sm text-gray-500">
+              GMT+8 (Kuala Lumpur)
             </div>
-          )}
+          </div>
+          <button className="border rounded-lg px-3 py-1 text-sm hover:bg-gray-50">
+            Change
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
         </div>
       </div>
     </div>
@@ -398,3 +398,10 @@ const ProfileSettings: React.FC = () => {
 };
 
 export default ProfileSettings;
+
+
+
+
+
+
+

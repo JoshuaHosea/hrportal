@@ -85,11 +85,12 @@ const Recruitment: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4">
+      {/* Tabs + Action */}
+      <div className="flex flex-col sm:flex-row justify-between gap-3 items-stretch sm:items-center">
+        <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('jobs')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeTab === 'jobs' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -97,7 +98,7 @@ const Recruitment: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('candidates')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeTab === 'candidates' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -105,74 +106,73 @@ const Recruitment: React.FC = () => {
           </button>
         </div>
         
-        <button className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
-          <Plus size={18} />
-          {activeTab === 'jobs' ? 'New Job Posting' : 'Add Candidate'}
+        <button className="flex items-center justify-center gap-2 bg-orange-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">
+          <Plus size={16} />
+          {activeTab === 'jobs' ? 'New Job' : 'Add Candidate'}
         </button>
       </div>
 
+      {/* ================= JOBS TAB ================= */}
       {activeTab === 'jobs' && (
         <div className="space-y-6">
-          <div className="flex gap-4">
-            <div className="relative flex-1 max-w-md">
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          {/* Search */}
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search job postings..."
-                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                placeholder="Search jobs..."
+                className="pl-8 pr-3 py-2 w-full text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">
-              <Filter size={18} />
+            <button className="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors text-sm">
+              <Filter size={14} />
               Filters
             </button>
           </div>
 
-          <div className="grid gap-4">
+          {/* Job Cards */}
+          <div className="grid gap-3">
             {jobPostings.map((job) => (
-              <div key={job.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-4">
+              <div key={job.id} className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{job.title}</h3>
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <h3 className="text-base font-semibold text-gray-900 mb-1">{job.title}</h3>
+                    <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 text-xs text-gray-600">
                       <div className="flex items-center gap-1">
-                        <User size={16} />
-                        {job.department}
+                        <User size={14} /> {job.department}
                       </div>
                       <div className="flex items-center gap-1">
-                        <MapPin size={16} />
-                        {job.location}
+                        <MapPin size={14} /> {job.location}
                       </div>
                       <div className="flex items-center gap-1">
-                        <DollarSign size={16} />
-                        {job.salary}
+                        <DollarSign size={14} /> {job.salary}
                       </div>
                       <div className="flex items-center gap-1">
-                        <Calendar size={16} />
-                        Posted {new Date(job.posted).toLocaleDateString()}
+                        <Calendar size={14} /> {new Date(job.posted).toLocaleDateString()}
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
                       {job.status}
                     </span>
                     <button
                       onClick={() => setSelectedJob(job)}
-                      className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                      className="p-1 hover:bg-gray-100 rounded-full transition-colors"
                     >
-                      <Eye size={18} className="text-gray-600" />
+                      <Eye size={14} className="text-gray-600" />
                     </button>
                   </div>
                 </div>
                 
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">{job.applications} applications received</span>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-gray-600">{job.applications} applications</span>
                   <div className="flex gap-2">
-                    <button className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm hover:bg-blue-200 transition-colors">
-                      View Applications
+                    <button className="px-2 py-1 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors">
+                      Applications
                     </button>
-                    <button className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+                    <button className="px-2 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
                       Edit
                     </button>
                   </div>
@@ -183,44 +183,47 @@ const Recruitment: React.FC = () => {
         </div>
       )}
 
+      {/* ================= CANDIDATES TAB ================= */}
       {activeTab === 'candidates' && (
         <div className="space-y-6">
-          <div className="flex gap-4">
-            <div className="relative flex-1 max-w-md">
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          {/* Search */}
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search candidates..."
-                className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="pl-8 pr-3 py-2 w-full text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">
-              <Filter size={18} />
+            <button className="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors text-sm">
+              <Filter size={14} />
               Filters
             </button>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+          {/* Desktop Table */}
+          <div className="hidden md:block bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Candidate</th>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Position</th>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Experience</th>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Score</th>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Stage</th>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Status</th>
-                    <th className="text-left py-4 px-6 font-semibold text-gray-700">Actions</th>
+                    <th className="text-left py-3 px-4">Candidate</th>
+                    <th className="text-left py-3 px-4">Position</th>
+                    <th className="text-left py-3 px-4">Experience</th>
+                    <th className="text-left py-3 px-4">Score</th>
+                    <th className="text-left py-3 px-4">Stage</th>
+                    <th className="text-left py-3 px-4">Status</th>
+                    <th className="text-left py-3 px-4">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {candidates.map((candidate) => (
-                    <tr key={candidate.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                      <td className="py-4 px-6 font-medium text-gray-900">{candidate.name}</td>
-                      <td className="py-4 px-6 text-gray-600">{candidate.position}</td>
-                      <td className="py-4 px-6 text-gray-600">{candidate.experience}</td>
-                      <td className="py-4 px-6">
+                    <tr key={candidate.id} className="border-b border-gray-100 hover:bg-gray-50">
+                      <td className="py-3 px-4 font-medium text-gray-900">{candidate.name}</td>
+                      <td className="py-3 px-4 text-gray-600">{candidate.position}</td>
+                      <td className="py-3 px-4 text-gray-600">{candidate.experience}</td>
+                      <td className="py-3 px-4">
                         <div className="flex items-center gap-2">
                           <div className="w-12 h-2 bg-gray-200 rounded-full">
                             <div 
@@ -228,18 +231,18 @@ const Recruitment: React.FC = () => {
                               style={{ width: `${candidate.score}%` }}
                             ></div>
                           </div>
-                          <span className="text-sm font-medium">{candidate.score}%</span>
+                          <span>{candidate.score}%</span>
                         </div>
                       </td>
-                      <td className="py-4 px-6 text-gray-600">{candidate.stage}</td>
-                      <td className="py-4 px-6">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(candidate.status)}`}>
+                      <td className="py-3 px-4 text-gray-600">{candidate.stage}</td>
+                      <td className="py-3 px-4">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(candidate.status)}`}>
                           {candidate.status}
                         </span>
                       </td>
-                      <td className="py-4 px-6">
-                        <button className="p-2 hover:bg-gray-200 rounded-full transition-colors">
-                          <Eye size={18} className="text-gray-600" />
+                      <td className="py-3 px-4">
+                        <button className="p-1 hover:bg-gray-200 rounded-full">
+                          <Eye size={14} className="text-gray-600" />
                         </button>
                       </td>
                     </tr>
@@ -248,42 +251,54 @@ const Recruitment: React.FC = () => {
               </table>
             </div>
           </div>
+
+          {/* Mobile Card Layout */}
+          <div className="grid gap-3 md:hidden">
+            {candidates.map((candidate) => (
+              <div key={candidate.id} className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <p className="font-medium text-gray-900 text-sm">{candidate.name}</p>
+                    <p className="text-xs text-gray-600">{candidate.position} • {candidate.experience}</p>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(candidate.status)}`}>
+                    {candidate.status}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mb-2">Stage: {candidate.stage}</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-16 h-2 bg-gray-200 rounded-full">
+                    <div 
+                      className="h-2 bg-green-500 rounded-full" 
+                      style={{ width: `${candidate.score}%` }}
+                    ></div>
+                  </div>
+                  <span className="text-xs">{candidate.score}%</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
+      {/* ================= JOB MODAL ================= */}
       {selectedJob && (
         <Modal
           isOpen={!!selectedJob}
           onClose={() => setSelectedJob(null)}
           title="Job Posting Details"
         >
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{selectedJob.title}</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="font-medium text-gray-700">Department:</span>
-                  <span className="ml-2 text-gray-600">{selectedJob.department}</span>
-                </div>
-                <div>
-                  <span className="font-medium text-gray-700">Location:</span>
-                  <span className="ml-2 text-gray-600">{selectedJob.location}</span>
-                </div>
-                <div>
-                  <span className="font-medium text-gray-700">Type:</span>
-                  <span className="ml-2 text-gray-600">{selectedJob.type}</span>
-                </div>
-                <div>
-                  <span className="font-medium text-gray-700">Salary:</span>
-                  <span className="ml-2 text-gray-600">{selectedJob.salary}</span>
-                </div>
-              </div>
+          <div className="space-y-4 text-sm">
+            <h3 className="text-lg font-semibold text-gray-900">{selectedJob.title}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <p><span className="font-medium">Department:</span> {selectedJob.department}</p>
+              <p><span className="font-medium">Location:</span> {selectedJob.location}</p>
+              <p><span className="font-medium">Type:</span> {selectedJob.type}</p>
+              <p><span className="font-medium">Salary:</span> {selectedJob.salary}</p>
             </div>
-            
-            <div className="pt-4 border-t border-gray-200">
-              <h4 className="font-medium text-gray-900 mb-2">Application Statistics</h4>
-              <p className="text-gray-600">{selectedJob.applications} applications received</p>
-              <p className="text-gray-600">Posted on {new Date(selectedJob.posted).toLocaleDateString()}</p>
+            <div className="pt-2 border-t border-gray-200">
+              <p>{selectedJob.applications} applications received</p>
+              <p>Posted on {new Date(selectedJob.posted).toLocaleDateString()}</p>
             </div>
           </div>
         </Modal>

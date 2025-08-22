@@ -60,22 +60,23 @@ const Performance: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-screen-sm mx-auto px-4 py-6 overflow-x-hidden min-h-screen bg-gray-50 space-y-6">
+    <div 
+      className="space-y-6 px-3 md:px-6 max-w-full overflow-x-hidden"
+      style={{ overscrollBehavior: 'none', WebkitOverflowScrolling: 'touch' }}
+    >
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2">
-        {['overview', 'goals', 'feedback', 'appraisals'].map((tab) => (
+      <div className="flex flex-wrap gap-2 md:gap-4">
+        {['overview','goals','feedback','appraisals'].map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 min-w-[40%] px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
-              activeTab === tab
-                ? 'bg-orange-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            className={`px-3 md:px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
+              activeTab === tab ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
             {tab === 'overview' && 'My Performance'}
-            {tab === 'goals' && 'Goals'}
-            {tab === 'feedback' && 'Feedback'}
+            {tab === 'goals' && 'Goals & Objectives'}
+            {tab === 'feedback' && 'Feedback History'}
             {tab === 'appraisals' && 'Appraisals'}
           </button>
         ))}
@@ -83,103 +84,95 @@ const Performance: React.FC = () => {
 
       {/* Overview */}
       {activeTab === 'overview' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <h3 className="text-base font-semibold text-gray-900 mb-4">Performance Overview</h3>
-              <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
+            {/* Performance Overview */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance Overview</h3>
+              <div className="grid grid-cols-2 gap-6">
+                {/* Stars */}
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star
                         key={star}
-                        size={20}
+                        size={24}
                         className={star <= performanceData.overall ? 'text-yellow-400 fill-current' : 'text-gray-300'}
                       />
                     ))}
                   </div>
-                  <p className="text-lg font-bold text-gray-900">{performanceData.overall}/5.0</p>
-                  <p className="text-xs text-gray-600">Overall Rating</p>
+                  <p className="text-2xl font-bold text-gray-900">{performanceData.overall}/5.0</p>
+                  <p className="text-sm text-gray-600">Overall Rating</p>
                 </div>
+                {/* Goals */}
                 <div className="text-center">
-                  <div className="w-14 h-14 mx-auto mb-2 relative">
-                    <svg className="w-14 h-14 transform -rotate-90" viewBox="0 0 36 36">
-                      <path
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="#e5e7eb"
-                        strokeWidth="3"
-                      />
-                      <path
-                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="#f97316"
-                        strokeWidth="3"
-                        strokeDasharray={`${performanceData.goals}, 100`}
-                      />
+                  <div className="w-16 h-16 mx-auto mb-2 relative">
+                    <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e5e7eb" strokeWidth="3"/>
+                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f97316" strokeWidth="3" strokeDasharray={`${performanceData.goals}, 100`} />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold text-gray-900">{performanceData.goals}%</span>
+                      <span className="text-lg font-bold text-gray-900">{performanceData.goals}%</span>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-600">Goals Achieved</p>
+                  <p className="text-sm text-gray-600">Goals Achieved</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-base font-semibold text-gray-900">Next Meeting</h3>
-                <Calendar size={18} className="text-orange-500" />
+            {/* Meeting */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Next Performance Meeting</h3>
+                <Calendar size={20} className="text-orange-500" />
               </div>
-              <div className="bg-orange-50 rounded-lg p-3">
-                <p className="text-sm font-semibold text-orange-900">
+              <div className="bg-orange-50 rounded-lg p-4">
+                <p className="text-lg font-semibold text-orange-900">
                   {new Date(performanceData.nextReview).toLocaleDateString('en-US', { 
                     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
                   })}
                 </p>
-                <p className="text-xs text-orange-700 mt-1">Quarterly Review with Sarah Johnson</p>
-                <button className="mt-2 bg-orange-500 text-white px-3 py-1.5 rounded-lg text-xs hover:bg-orange-600 transition-colors">
-                  Prepare
+                <p className="text-sm text-orange-700 mt-1">Quarterly Performance Review with Sarah Johnson</p>
+                <button className="mt-3 bg-orange-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">
+                  Prepare for Meeting
                 </button>
               </div>
             </div>
           </div>
 
+          {/* Sidebar */}
           <div className="space-y-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="text-green-500" size={20} />
-                <h4 className="font-semibold text-gray-900 text-sm">Achievements</h4>
+            {/* Achievements */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3 mb-4">
+                <TrendingUp className="text-green-500" size={24} />
+                <h4 className="font-semibold text-gray-900">Recent Achievements</h4>
               </div>
-              <div className="space-y-2">
-                <div className="p-2 bg-green-50 rounded-lg text-xs">
-                  <p className="font-medium text-green-900">Project Leadership</p>
-                  <p className="text-green-700">Led cross-functional team</p>
+              <div className="space-y-3">
+                <div className="p-3 bg-green-50 rounded-lg">
+                  <p className="text-sm font-medium text-green-900">Project Leadership</p>
+                  <p className="text-xs text-green-700">Successfully led cross-functional team</p>
                 </div>
-                <div className="p-2 bg-blue-50 rounded-lg text-xs">
-                  <p className="font-medium text-blue-900">Skill Development</p>
-                  <p className="text-blue-700">Completed React training</p>
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <p className="text-sm font-medium text-blue-900">Skill Development</p>
+                  <p className="text-xs text-blue-700">Completed advanced React training</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <div className="flex items-center gap-2 mb-2">
-                <MessageSquare className="text-blue-500" size={20} />
-                <h4 className="font-semibold text-gray-900 text-sm">Recent Feedback</h4>
+            {/* Feedback */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3 mb-4">
+                <MessageSquare className="text-blue-500" size={24} />
+                <h4 className="font-semibold text-gray-900">Recent Feedback</h4>
               </div>
-              <p className="text-xs text-gray-600 mb-2">Sarah Johnson:</p>
-              <p className="text-sm text-gray-800 italic">"Excellent work on the recent project."</p>
-              <div className="flex items-center mt-1">
+              <p className="text-sm text-gray-600 mb-2">Latest from Sarah Johnson:</p>
+              <p className="text-sm text-gray-800 italic">"Excellent work on the recent project. Shows great leadership potential."</p>
+              <div className="flex items-center mt-2">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    size={14}
-                    className={star <= 4.5 ? 'text-yellow-400 fill-current' : 'text-gray-300'}
-                  />
+                  <Star key={star} size={16} className={star <= 4.5 ? 'text-yellow-400 fill-current' : 'text-gray-300'} />
                 ))}
-                <span className="ml-1 text-xs text-gray-600">4.5/5</span>
+                <span className="ml-2 text-sm text-gray-600">4.5/5</span>
               </div>
             </div>
           </div>
@@ -188,42 +181,47 @@ const Performance: React.FC = () => {
 
       {/* Goals */}
       {activeTab === 'goals' && (
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <h2 className="text-base font-semibold text-gray-900">Goals</h2>
-            <button className="flex items-center gap-1 bg-orange-500 text-white px-3 py-1.5 rounded-lg text-xs hover:bg-orange-600 transition-colors">
-              <Plus size={14} />
-              Add Goal
+        <div className="space-y-6">
+          <div className="flex justify-between items-center flex-wrap gap-2">
+            <h2 className="text-xl font-semibold text-gray-900">Goals & Objectives</h2>
+            <button className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+              <Plus size={18} />
+              Add New Goal
             </button>
           </div>
 
-          <div className="grid gap-3">
+          <div className="grid gap-4">
             {goals.map((goal) => (
-              <div key={goal.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-                <div className="flex justify-between items-start mb-2">
+              <div key={goal.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-900">{goal.title}</h3>
-                    <p className="text-xs text-gray-600">Deadline: {new Date(goal.deadline).toLocaleDateString()}</p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{goal.title}</h3>
+                    <p className="text-sm text-gray-600">Deadline: {new Date(goal.deadline).toLocaleDateString()}</p>
                   </div>
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(goal.status)}`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(goal.status)}`}>
                     {goal.status}
                   </span>
                 </div>
-                <div className="mb-2">
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-gray-700">Progress</span>
-                    <span className="text-gray-900">{goal.progress}%</span>
+                
+                <div className="mb-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">Progress</span>
+                    <span className="text-sm font-medium text-gray-900">{goal.progress}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-orange-500 h-2 rounded-full transition-all duration-300" style={{ width: `${goal.progress}%` }}></div>
+                    <div 
+                      className="bg-orange-500 h-2 rounded-full transition-all duration-300" 
+                      style={{ width: `${goal.progress}%` }}
+                    ></div>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button className="px-2 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs hover:bg-blue-200 transition-colors">
-                    Update
+                
+                <div className="flex gap-2 flex-wrap">
+                  <button className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm hover:bg-blue-200 transition-colors">
+                    Update Progress
                   </button>
-                  <button className="px-2 py-1 bg-gray-100 text-gray-700 rounded-lg text-xs hover:bg-gray-200 transition-colors">
-                    Details
+                  <button className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+                    View Details
                   </button>
                 </div>
               </div>
@@ -234,28 +232,28 @@ const Performance: React.FC = () => {
 
       {/* Feedback */}
       {activeTab === 'feedback' && (
-        <div className="space-y-4">
-          <h2 className="text-base font-semibold text-gray-900">Feedback</h2>
-          <div className="grid gap-3">
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold text-gray-900">Feedback History</h2>
+          <div className="grid gap-4">
             {feedbackHistory.map((feedback) => (
-              <div key={feedback.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-                <div className="flex justify-between items-start mb-2">
+              <div key={feedback.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="flex justify-between items-start mb-4 flex-wrap">
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-900">{feedback.from}</h3>
-                    <p className="text-xs text-gray-600">{feedback.type} • {new Date(feedback.date).toLocaleDateString()}</p>
+                    <h3 className="font-semibold text-gray-900">{feedback.from}</h3>
+                    <p className="text-sm text-gray-600">{feedback.type} • {new Date(feedback.date).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star
                         key={star}
-                        size={14}
+                        size={16}
                         className={star <= feedback.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}
                       />
                     ))}
-                    <span className="ml-1 text-xs font-medium text-gray-900">{feedback.rating}/5</span>
+                    <span className="ml-2 text-sm font-medium text-gray-900">{feedback.rating}/5</span>
                   </div>
                 </div>
-                <p className="text-xs text-gray-700 italic">"{feedback.comment}"</p>
+                <p className="text-gray-700 italic">"{feedback.comment}"</p>
               </div>
             ))}
           </div>
@@ -264,23 +262,23 @@ const Performance: React.FC = () => {
 
       {/* Appraisals */}
       {activeTab === 'appraisals' && (
-        <div className="space-y-4">
-          <h2 className="text-base font-semibold text-gray-900">Appraisals</h2>
-          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-900 mb-2">Upcoming</h3>
-            <div className="space-y-2">
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold text-gray-900">Performance Appraisals</h2>
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Appraisals</h3>
+            <div className="space-y-3">
               {upcomingAppraisals.map((appraisal, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <User size={16} className="text-gray-600" />
+                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg flex-wrap gap-2">
+                  <div className="flex items-center gap-3">
+                    <User size={20} className="text-gray-600" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{appraisal.employee}</p>
-                      <p className="text-xs text-gray-600">{appraisal.type}</p>
+                      <p className="font-medium text-gray-900">{appraisal.employee}</p>
+                      <p className="text-sm text-gray-600">{appraisal.type}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">{new Date(appraisal.date).toLocaleDateString()}</p>
-                    <button className="text-xs text-orange-600 hover:text-orange-700">Schedule</button>
+                    <p className="font-medium text-gray-900">{new Date(appraisal.date).toLocaleDateString()}</p>
+                    <button className="text-sm text-orange-600 hover:text-orange-700">Schedule Meeting</button>
                   </div>
                 </div>
               ))}

@@ -29,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2 mb-3">
             <div className="w-6 h-6 bg-orange-500 rounded-full"></div>
-            <span className="text-xl font-bold text-gray-900">HRPORTAL</span>
+            <span className="text-xl font-bold text-gray-900">Cursor IT Services</span>
           </div>
           <h1 className="text-lg font-semibold text-gray-900 mb-1">Welcome Back</h1>
           <p className="text-sm text-gray-600">Sign in to continue</p>

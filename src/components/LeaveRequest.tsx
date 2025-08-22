@@ -68,20 +68,20 @@ const LeaveRequest: React.FC = () => {
     { name: 'Taken', value: leaveTaken },
     { name: 'Remaining', value: totalLeave - leaveTaken },
   ];
-  const COLORS = ['#f97316', '#d1d5db']; // orange + gray
+  const COLORS = ['#f97316', '#d1d5db'];
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6">
+          <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">
               Apply Leave Form
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Select leave type
                 </label>
                 <select
@@ -89,7 +89,7 @@ const LeaveRequest: React.FC = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, leaveType: e.target.value })
                   }
-                  className="w-full p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full p-2.5 sm:p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
                 >
                   <option value="">Select leave type</option>
                   <option value="annual">Annual Leave</option>
@@ -99,42 +99,38 @@ const LeaveRequest: React.FC = () => {
                 </select>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     From
                   </label>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      value={formData.fromDate}
-                      onChange={(e) =>
-                        setFormData({ ...formData, fromDate: e.target.value })
-                      }
-                      className="w-full p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    />
-                  </div>
+                  <input
+                    type="date"
+                    value={formData.fromDate}
+                    onChange={(e) =>
+                      setFormData({ ...formData, fromDate: e.target.value })
+                    }
+                    className="w-full p-2.5 sm:p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                  />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     To
                   </label>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      value={formData.toDate}
-                      onChange={(e) =>
-                        setFormData({ ...formData, toDate: e.target.value })
-                      }
-                      className="w-full p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    />
-                  </div>
+                  <input
+                    type="date"
+                    value={formData.toDate}
+                    onChange={(e) =>
+                      setFormData({ ...formData, toDate: e.target.value })
+                    }
+                    className="w-full p-2.5 sm:p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                  />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Reason
                 </label>
                 <textarea
@@ -143,27 +139,27 @@ const LeaveRequest: React.FC = () => {
                     setFormData({ ...formData, reason: e.target.value })
                   }
                   rows={3}
-                  className="w-full p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                  className="w-full p-2.5 sm:p-3 bg-gray-200 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm resize-none"
                   placeholder="Enter reason for leave..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Supporting Document
                 </label>
                 <button
                   type="button"
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors text-sm"
                 >
-                  <Upload size={18} />
+                  <Upload size={16} className="sm:size-18" />
                   <span>Upload file</span>
                 </button>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors font-medium"
+                className="w-full bg-orange-500 text-white py-2.5 sm:py-3 rounded-lg hover:bg-orange-600 transition-colors font-medium text-sm sm:text-base"
               >
                 Submit Leave Request
               </button>
@@ -171,7 +167,8 @@ const LeaveRequest: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-4">
+        {/* Sidebar */}
+        <div className="space-y-3 sm:space-y-4">
           <DashboardCard
             title="Leave Day"
             value="16"
@@ -181,17 +178,17 @@ const LeaveRequest: React.FC = () => {
             textColor="text-white"
           />
 
-          {/* Leave Days Taken with Pie Chart */}
-          <div className="bg-gray-600 text-white rounded-xl p-6 shadow-sm flex flex-col items-center justify-center">
-            <h3 className="text-lg font-semibold">Leave Days Taken</h3>
-            <p className="text-3xl font-bold my-2">{leaveTaken}</p>
-            <div className="w-24 h-24">
+          {/* Leave Days Taken */}
+          <div className="bg-gray-600 text-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-sm flex flex-col items-center justify-center">
+            <h3 className="text-base sm:text-lg font-semibold">Leave Days Taken</h3>
+            <p className="text-2xl sm:text-3xl font-bold my-1 sm:my-2">{leaveTaken}</p>
+            <div className="w-20 h-20 sm:w-24 sm:h-24">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={data}
-                    innerRadius={30}
-                    outerRadius={45}
+                    innerRadius={20}
+                    outerRadius={35}
                     paddingAngle={3}
                     dataKey="value"
                   >
@@ -206,16 +203,17 @@ const LeaveRequest: React.FC = () => {
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-sm mt-2">
+            <p className="text-xs sm:text-sm mt-1 sm:mt-2">
               {leaveTaken}/{totalLeave} days
             </p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-        <div className="p-6 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">
+      {/* Leave Request History */}
+      <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200">
+        <div className="p-4 sm:p-6 border-b border-gray-200">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">
             Leave Request History
           </h3>
         </div>
@@ -224,19 +222,27 @@ const LeaveRequest: React.FC = () => {
           {leaveRequests.map((request) => (
             <div
               key={request.id}
-              className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
+              className="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 hover:bg-gray-50 transition-colors"
             >
-              <div className="flex items-center gap-4">
-                <span className="font-medium text-gray-900">{request.id}</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <span className="font-medium text-gray-900 text-sm sm:text-base">
+                  {request.id}
+                </span>
                 <div>
-                  <p className="font-medium text-gray-900">{request.type}</p>
-                  <p className="text-sm text-gray-600">{request.dates}</p>
-                  <p className="text-sm text-gray-600">{request.reason}</p>
+                  <p className="font-medium text-gray-900 text-sm sm:text-base">
+                    {request.type}
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {request.dates}
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {request.reason}
+                  </p>
                 </div>
               </div>
 
               <span
-                className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
                   request.status
                 )}`}
               >
